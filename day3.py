@@ -1,9 +1,12 @@
+from typing import List
 from collections import Counter
 
-def invert(bit):
+def invert(bit : str) -> str:
+	''' Returns the inversion of a bit. '''
 	return '1' if bit == '0' else '0'
 
-def get_gamma(binary_nums):
+def get_gamma(binary_nums : List[str]) -> List[str]:
+	''' Returns the gamma from the given list of binary numbers, as a list of characters for flexibility. '''
 	bit_length = len(binary_nums[0])
 
 	gamma = []
@@ -16,18 +19,22 @@ def get_gamma(binary_nums):
 		
 	return gamma
 
-def get_epsilon(binary_nums):
+def get_epsilon(binary_nums : List[str]) -> List[str]:
+	''' An epsilon is just a gamma, but inverted. '''
 	return list(map(invert, get_gamma(binary_nums)))
 
-def make_decimal_of(binary_digits):
+def make_decimal_of(binary_digits : List[str]) -> int:
+	''' Convert a list of binary digits to its decimal representation. '''
 	return int(''.join(binary_digits), 2)
 
-def part1(binary_nums):
+def part1(binary_nums : List[str]) -> int:
+	''' Solve part 1. '''
 	gamma = make_decimal_of(get_gamma(binary_nums))
 	epsilon = make_decimal_of(get_epsilon(binary_nums))
 	return gamma * epsilon
 
-def part2(binary_nums):
+def part2(binary_nums : List[str]) -> int:
+	''' Solve part 2. '''
 	bit_length = len(binary_nums[0])
 	binary_nums_oxygen = binary_nums[:]
 	binary_nums_co2 = binary_nums[:]

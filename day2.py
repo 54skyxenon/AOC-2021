@@ -1,4 +1,7 @@
-def part1(moves):
+from typing import List
+
+def part1(moves : List[str]) -> int:
+	''' Solve part 1. '''
 	x = y = 0
 	for move in moves:
 		direction, magnitude = move.split()
@@ -13,7 +16,8 @@ def part1(moves):
 	
 	return x * y
 
-def part2(moves):
+def part2(moves : List[str]) -> int:
+	''' Solve part 2. '''
 	x = y = aim = 0
 	for move in moves:
 		direction, magnitude = move.split()
