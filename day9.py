@@ -10,7 +10,7 @@ class DSU:
     ''' Union find class. '''
     def __init__(self, m : int, n : int) -> None:
         ''' Constructor for union find initially making every point's representative itself. '''
-        self.rep = dict(((i, j), (i, j)) for i, j in product(range(m), range(n)))
+        self.rep = dict((pt, pt) for pt in product(range(m), range(n)))
 
     def find(self, x : Point) -> Point:
         ''' Find the representative of the given point (its low point). '''
@@ -19,7 +19,7 @@ class DSU:
         return self.rep[x]
 
     def union(self, x : Point, y : Point) -> None:
-        ''' Union together the represenatives of two points in a basin to make them connected. '''
+        ''' Union together the representatives of two points in a basin to make them connected. '''
         xr, yr = self.find(x), self.find(y)
         self.rep[xr] = self.rep[yr]
 
