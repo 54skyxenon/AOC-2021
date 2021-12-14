@@ -42,7 +42,6 @@ def part1(template : str, rules : PairRules) -> int:
     ''' Solve part 1 '''
     return solve(template, rules, 10)
     
-
 def part2(template : str, rules : PairRules) -> int:
     ''' Solve part 2 '''
     return solve(template, rules, 40)
