@@ -22,13 +22,18 @@ def dijkstra(graph : Graph, start : Node, end : Node) -> int:
         if u != start:
             Q[u] = float('inf')
 
+    nodes_in_Q = set()
+    for u in graph:
+        nodes_in_Q.add(u)
+
     while Q:
         # extract min
         u, dists[u] = Q.popitem()
+        nodes_in_Q.remove(u)
 
         # consider outneighbors
         for v in graph[u]:
-            if v in Q:
+            if v in nodes_in_Q:
                 dists[v] = lookups[v]
                 if dists[v] > dists[u] + graph[u][v]:
                     Q[v] = dists[u] + graph[u][v]
