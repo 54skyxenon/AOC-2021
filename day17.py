@@ -1,24 +1,14 @@
-from typing import Tuple
-
 def summation(n : int) -> int:
     ''' Closed form summation formula for integers 1..n '''
     return (n * (n + 1)) // 2
-
-def get_ys(width : int, y_start : int, y_end : int) -> Tuple[int, int]:
-    ''' Get the range of y-coordinate we might need to search through. '''
-    if y_start >= 0:
-        return (0, y_end + 1)
-    elif y_end >= 0: # y_start < 0 <= y_end
-        return (y_start, 2 * (y_end - y_start + width))
-    else: # y_start <= y_end < 0
-        return (y_start, 2 * (y_end - y_start + width))
 
 def part1(x_start : int, x_end : int, y_start : int, y_end : int) -> int:
     ''' Solve part 1 '''
     ans = 0
 
     for x in range(x_end + 1):
-        for y in range(*get_ys(x_end - x_start + 1, y_start, y_end)):
+        # Assuming y_start <= y_end < 0, idk otherwise
+        for y in range(y_start, -(y_start - 1) + 1):
             vx, vy = x, y
             curr_x = curr_y = 0
             while vy >= 0 or curr_y >= y_start:
@@ -34,7 +24,8 @@ def part2(x_start : int, x_end : int, y_start : int, y_end : int) -> int:
     ans = set()
 
     for x in range(x_end + 1):
-        for y in range(*get_ys(x_end - x_start + 1, y_start, y_end)):
+        # Assuming y_start <= y_end < 0, idk otherwise
+        for y in range(y_start, -(y_start - 1) + 1):
             vx, vy = x, y
             curr_x = curr_y = 0
             while vy >= 0 or curr_y >= y_start:
