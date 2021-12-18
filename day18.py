@@ -11,7 +11,7 @@ def magnitude(operand : Expression) -> int:
     else:
         return 3 * magnitude(operand[0]) + 2 * magnitude(operand[1])
 
-def coalesce(element_stack : Tuple[int, int]) -> Expression:
+def coalesce(element_stack : List[Tuple[int, int]]) -> Expression:
     ''' Recoalesce the operands from stack element info. '''
     stack = []
     for val, depth in element_stack:
@@ -23,9 +23,8 @@ def coalesce(element_stack : Tuple[int, int]) -> Expression:
     
     return stack[0][0]
 
-def explode(operand : Expression) -> Expression:
-    ''' Try exploding a snailfash operand, if applicable. '''
-    ## List of elements and their depths
+def get_elements(operand : Expression) -> List[Tuple[int, int]]:
+    ''' Flattened representation of expression: a list of tuples detailing all elements and their depths. '''
     elements = []
     stack = [(operand, -1)]
 
@@ -37,7 +36,12 @@ def explode(operand : Expression) -> Expression:
             stack.append((top[0], depth + 1))
             stack.append((top[1], depth + 1))
     
-    elements.reverse()
+    return elements[::-1]
+
+def explode(operand : Expression) -> Expression:
+    ''' Try exploding a snailfash operand, if applicable. '''
+    elements = get_elements(operand)
+
     for i in range(len(elements) - 1):
         if elements[i][1] == elements[i + 1][1] == 4:
             left_val, _ = elements.pop(i)
@@ -57,19 +61,8 @@ def explode(operand : Expression) -> Expression:
 
 def split(operand : Expression) -> Expression:
     ''' Try splitting a snailfash operand, if applicable. '''
-    ## List of elements and their depths
-    elements = []
-    stack = [(operand, -1)]
+    elements = get_elements(operand)
 
-    while stack:
-        top, depth = stack.pop()
-        if type(top) == INT_TYPE:
-            elements.append((top, depth))
-        else:
-            stack.append((top[0], depth + 1))
-            stack.append((top[1], depth + 1))
-    
-    elements.reverse()
     for i in range(len(elements)):
         if elements[i][0] >= 10:
             val, depth = elements.pop(i)
