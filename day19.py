@@ -45,14 +45,14 @@ def solve(beacons : List[List[Point3D]]) -> None:
         for beacon_num, old_b_beacs in enumerate(beacons):
             if beacon_num not in abs_posn:
                 for i, j, k in product(range(4), range(4), range(4)):
-                    # try all 4 * 4 * 4 = 64 unique rotation settings
+                    ## Try all 4 * 4 * 4 = 64 unique rotation settings
                     b_beacs = [rotate(t, i, j, k) for t in old_b_beacs]
                     ds = Counter(subtract(a, b) for b, a in product(b_beacs, a_beacs))
 
-                    ## Find if at least 12 pairs are in range
-                    if ds.most_common()[0][1] >= 12:
-                        d = Counter(ds).most_common()[0][0]
-                        abs_posn[beacon_num] = add(abs_posn[beacon_id], d)
+                    ## Find if at least 12 pairs are in range for the most common distance vector
+                    d = ds.most_common()[0]
+                    if d[1] >= 12:
+                        abs_posn[beacon_num] = add(abs_posn[beacon_id], d[0])
                         worklist.append((beacon_num, b_beacs))
 
     part1 = len(points)
