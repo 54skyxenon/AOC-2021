@@ -5,7 +5,8 @@ from collections import Counter, deque
 Point3D = Tuple[int, int, int]
 
 def rotate(beacon : Point3D, rx : int, ry : int, rz : int) -> Point3D:
-    ''' Stolen from https://github.com/DannyCamenisch '''
+    ''' Rotate a beacon on the x-axis, y-axis, and z-axis collectively (formula derived from rotation matrix).
+        NOTE: Stolen from https://github.com/DannyCamenisch '''
     x, y, z = beacon
     for _ in range(rx):
         x, y, z = x, z, -y
@@ -27,10 +28,14 @@ def manhattan(a : Point3D, b : Point3D) -> Point3D:
     ''' Manhattan distance of two 3D points. '''
     return sum(abs(a_elt - b_elt) for a_elt, b_elt in zip(a, b))
 
-def solve(beacons : List[List[Tuple[int, int, int]]]) -> int:
-    ''' Solve part 1 and part 2, code reuse or doing them separately takes too long '''
+def solve(beacons : List[List[Point3D]]) -> None:
+    ''' Solve part 1 and part 2, code reuse or doing them separately takes too long! '''
     points = set()
+
+    ## What's the absolute position of a beacon? (start beacon 0 at origin)
     abs_posn = {0: (0, 0, 0)}
+
+    ## Process a queue of beacons and to try to reach other unseen beacons
     worklist = deque([(0, beacons[0])])
     while worklist:
         beacon_id, a_beacs = worklist.popleft()
@@ -40,13 +45,11 @@ def solve(beacons : List[List[Tuple[int, int, int]]]) -> int:
         for beacon_num, old_b_beacs in enumerate(beacons):
             if beacon_num not in abs_posn:
                 for i, j, k in product(range(4), range(4), range(4)):
+                    # try all 4 * 4 * 4 = 64 unique rotation settings
                     b_beacs = [rotate(t, i, j, k) for t in old_b_beacs]
+                    ds = Counter(tuple(subtract(a, b)) for b, a in product(b_beacs, a_beacs))
 
-                    ds = Counter()
-                    for b_beac in b_beacs:
-                        for a_beac in a_beacs:
-                            ds[tuple(subtract(a_beac, b_beac))] += 1
-
+                    ## Find if at least 12 pairs are in range
                     if ds.most_common()[0][1] >= 12:
                         d = Counter(ds).most_common()[0][0]
                         abs_posn[beacon_num] = add(abs_posn[beacon_id], d)
