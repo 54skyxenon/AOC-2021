@@ -58,7 +58,7 @@ def part2(grid : Grid) -> int:
     largest_three = sorted(basin_size.values())[-3:]
     return reduce(lambda a, b: a * b, largest_three, 1)
 
-with open('day9.txt') as f:
+with open('input/day09.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     lines = [list(map(int, list(line))) for line in lines]
     print(part1(lines))

@@ -109,7 +109,7 @@ def part2(exps : List[Expression]) -> int:
 
     return ans
 
-with open('day18.txt') as f:
+with open('input/day18.txt') as f:
     lines = [eval(line.rstrip('\n')) for line in f.readlines()]
     print(part1(lines))
     print(part2(lines))

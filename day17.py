@@ -36,7 +36,7 @@ def part2(x_start : int, x_end : int, y_start : int, y_end : int) -> int:
     
     return len(ans)
 
-with open('day17.txt') as f:
+with open('input/day17.txt') as f:
     vars = [line.rstrip('\n') for line in f.readlines()][0]
     vars = vars.replace('target area: x=', '').replace('..', ',').replace(' y=', '')
     print(part1(*map(int, vars.split(','))))

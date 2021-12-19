@@ -56,7 +56,7 @@ def part2(edges : List[str]) -> int:
 
     return DFS('start', False)
 
-with open('day12.txt') as f:
+with open('input/day12.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     print(part1(lines))
     print(part2(lines))

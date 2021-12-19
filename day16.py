@@ -80,7 +80,7 @@ def part2(transmission : str) -> int:
     ''' Solve part 2 '''
     return packet_data(make_bits_from(transmission), 0).value
 
-with open('day16.txt') as f:
+with open('input/day16.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     print(part1(lines[0]))
     print(part2(lines[0]))

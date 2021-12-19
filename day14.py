@@ -46,7 +46,7 @@ def part2(template : str, rules : PairRules) -> int:
     ''' Solve part 2 '''
     return solve(template, rules, 40)
 
-with open('day14.txt') as f:
+with open('input/day14.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     template = lines[0]
     rules = build_rules(lines[2:])

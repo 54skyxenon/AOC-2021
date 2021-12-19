@@ -14,7 +14,7 @@ def part2(xs : List[int]) -> int:
     left, right = min(xs), max(xs)
     return min(sum(summation(abs(x - i)) for x in xs) for i in range(left, right + 1))
 
-with open('day7.txt') as f:
+with open('input/day07.txt') as f:
     lines = list(map(int, f.readlines()[0].rstrip('\n').split(',')))
     print(part1(lines))
     print(part2(lines))

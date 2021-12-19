@@ -62,7 +62,7 @@ def part2(moves : List[str], boards : List[List[List[str]]], r=5, c=5) -> int:
 
     return scores[-1]
 
-with open('day4.txt') as f:
+with open('input/day04.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines() if line != '\n']
     moves = lines[0].split(',')
 

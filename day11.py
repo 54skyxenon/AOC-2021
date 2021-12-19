@@ -46,7 +46,7 @@ def part2(grid : Grid) -> int:
 
     return step_num
 
-with open('day11.txt') as f:
+with open('input/day11.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     lines = [list(map(int, list(line))) for line in lines]
     print(part1(deepcopy(lines)))

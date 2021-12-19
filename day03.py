@@ -55,7 +55,7 @@ def part2(binary_nums : List[str]) -> int:
 	scrubber_rating = make_decimal_of(binary_nums_co2.pop())
 	return gen_rating * scrubber_rating
 
-with open('day3.txt') as f:
+with open('input/day03.txt') as f:
 	lines = [line.rstrip('\n') for line in f.readlines()]
 	print(part1(lines))
 	print(part2(lines))

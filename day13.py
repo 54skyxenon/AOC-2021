@@ -66,7 +66,7 @@ def part2(dots : List[Point], insns : List[str]) -> None:
         grid = apply_fold(grid, insn)
     pretty_print(grid)
 
-with open('day13.txt') as f:
+with open('input/day13.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
 
     dots_read = False

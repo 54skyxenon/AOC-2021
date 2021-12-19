@@ -33,7 +33,7 @@ def part2(moves : List[str]) -> int:
 	
 	return x * y
 
-with open('day2.txt') as f:
+with open('input/day02.txt') as f:
 	lines = [line.rstrip('\n') for line in f.readlines()]
 	print(part1(lines))
 	print(part2(lines))

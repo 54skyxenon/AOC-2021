@@ -87,7 +87,7 @@ def part2(grid : Grid) -> int:
     entire_grid = sum(entire_grid, [])
     return part1(entire_grid)
 
-with open('day15.txt') as f:
+with open('input/day15.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     lines = [list(map(int, row)) for row in lines]
     print(part1(lines))

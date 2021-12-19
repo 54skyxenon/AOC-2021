@@ -51,7 +51,7 @@ def part2(chunks : List[str]) -> int:
 
     return median(completion_scores)
 
-with open('day10.txt') as f:
+with open('input/day10.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     print(part1(lines))
     print(part2(lines))

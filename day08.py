@@ -74,7 +74,7 @@ def part2(entries : List[int]) -> int:
 
     return ans
 
-with open('day8.txt') as f:
+with open('input/day08.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
     print(part1(lines))
     print(part2(lines))

@@ -48,7 +48,7 @@ def part2(vents : List[str]) -> int:
     ''' Solve part 2 '''
     return vent_sum(vents, count_diagonals=True)
 
-with open('day5.txt') as f:
+with open('input/day05.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines() if line != '\n']
     print(part1(lines))
     print(part2(lines))

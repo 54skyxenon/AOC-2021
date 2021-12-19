@@ -23,7 +23,7 @@ def part2(timers : List[int]) -> int:
     ''' Solve part 2 '''
     return part1(timers, days=256)
 
-with open('day6.txt') as f:
+with open('input/day06.txt') as f:
     lines = f.readlines()[0].rstrip('\n')
     nums = list(map(int, lines.split(',')))
     print(part1(nums))
