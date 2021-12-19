@@ -47,7 +47,7 @@ def solve(beacons : List[List[Point3D]]) -> None:
                 for i, j, k in product(range(4), range(4), range(4)):
                     # try all 4 * 4 * 4 = 64 unique rotation settings
                     b_beacs = [rotate(t, i, j, k) for t in old_b_beacs]
-                    ds = Counter(tuple(subtract(a, b)) for b, a in product(b_beacs, a_beacs))
+                    ds = Counter(subtract(a, b) for b, a in product(b_beacs, a_beacs))
 
                     ## Find if at least 12 pairs are in range
                     if ds.most_common()[0][1] >= 12:
@@ -60,7 +60,7 @@ def solve(beacons : List[List[Point3D]]) -> None:
     print(part1)
     print(part2)
 
-with open('day19.txt') as f:
+with open('input/day19.txt') as f:
     lines = [line.rstrip('\n') for line in f.readlines()]
 
     beacons = []
