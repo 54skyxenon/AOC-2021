@@ -38,6 +38,7 @@ def dijkstra(get_neis : Callable[[Grid], List[Edge]], start : str, end : str) ->
     while True:
         # extract min
         u, dists[u] = Q.popitem()
+        print('at dist =', dists[u])
         visited.add(u)
         if u == end:
             return dists[u]
@@ -46,8 +47,7 @@ def dijkstra(get_neis : Callable[[Grid], List[Edge]], start : str, end : str) ->
         for cost, v in get_neis(unflatten(u)):
             if v not in visited:
                 if dists[v] > dists[u] + cost:
-                    Q[v] = dists[u] + cost
-                    dists[v] = dists[u] + cost
+                    Q[v] = dists[v] = dists[u] + cost
 
 def part1(grid : Grid) -> int:
     ''' Solve part 1 '''
@@ -118,18 +118,13 @@ def part1(grid : Grid) -> int:
                         if grid[nr][nc] == grid[nr][(c + nc) // 2] == '.':
                             neis.append(try_move(ENERGY_OF_TYPE[type] * 2, nr, nc))
 
-            ## need to try moving out of second row
-            elif r == 2:
-                if grid[r - 1][c] == '.':
-                    if grid[r - 1][c - 1] == '.':
-                        neis.append(try_move(ENERGY_OF_TYPE[type] * 2, r - 1, c - 1))
-                    if grid[r - 1][c + 1] == '.':
-                        neis.append(try_move(ENERGY_OF_TYPE[type] * 2, r - 1, c + 1))
-
-            ## need to try moving out of third row
-            elif r == 3:
-                if grid[r - 1][c] == '.':
-                    neis.append(try_move(ENERGY_OF_TYPE[type], r - 1, c))
+            ## need to try moving out of second-third rows
+            elif r in {2, 3}:
+                if grid[1][c] == '.':
+                    if grid[1][c - 1] == '.':
+                        neis.append(try_move(ENERGY_OF_TYPE[type] * r, 1, c - 1))
+                    if grid[1][c + 1] == '.':
+                        neis.append(try_move(ENERGY_OF_TYPE[type] * r, 1, c + 1))
 
         return neis
     
@@ -243,17 +238,13 @@ def part2(grid : Grid) -> int:
                         neis.append(try_move(2 * ENERGY_OF_TYPE[type], nr, nc))
 
             ## need to try moving out of second row
-            elif r == 2 and grid[r - 1][c] == '.':
-                if grid[r - 1][c - 1] == '.':
-                    neis.append(try_move(2 * ENERGY_OF_TYPE[type], r - 1, c - 1))
-                if grid[r - 1][c + 1] == '.':
-                    neis.append(try_move(2 * ENERGY_OF_TYPE[type], r - 1, c + 1))
+            elif r in {2, 3, 4, 5} and grid[1][c] == '.':
+                if grid[1][c - 1] == '.':
+                    neis.append(try_move(r * ENERGY_OF_TYPE[type], 1, c - 1))
+                if grid[1][c + 1] == '.':
+                    neis.append(try_move(r * ENERGY_OF_TYPE[type], 1, c + 1))
 
-            ## need to try moving out of third row
-            elif r in {3, 4, 5} and grid[r - 1][c] == '.':
-                neis.append(try_move(ENERGY_OF_TYPE[type], r - 1, c))
-
-            return neis
+        return neis
     
     grid_done = [
         '#############',
