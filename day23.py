@@ -120,7 +120,7 @@ def part1(grid : Grid) -> int:
 
             ## need to try moving out of second-third rows
             elif r in {2, 3}:
-                if grid[1][c] == '.':
+                if all(grid[rr][c] == '.' for rr in range(1, r)):
                     if grid[1][c - 1] == '.':
                         neis.append(try_move(ENERGY_OF_TYPE[type] * r, 1, c - 1))
                     if grid[1][c + 1] == '.':
@@ -128,7 +128,6 @@ def part1(grid : Grid) -> int:
 
         return neis
     
-    # DFS(grid, set([flatten(grid)]))
     grid_done = [
         '#############',
         '#...........#',
@@ -147,6 +146,16 @@ def part2(grid : Grid) -> int:
     def get_neis_p2(grid : Grid) -> List[Edge]:
         ''' Simulate all possible next states from an amphipod move. '''
         neis = []
+
+        '''
+        #############
+        #...........#
+        ###B#C#B#D###
+          #D#C#B#A#
+          #D#B#A#C#
+          #A#D#C#A#
+          #########
+        '''
 
         ## get all amphipods that are not in the right place
         amphipods = []
@@ -237,8 +246,8 @@ def part2(grid : Grid) -> int:
                     if nc not in {3, 5, 7, 9} and 0 <= nr < len(grid) and 0 <= nc < len(grid[nr]) and grid[nr][nc] == grid[nr][(c + nc) // 2] == '.':
                         neis.append(try_move(2 * ENERGY_OF_TYPE[type], nr, nc))
 
-            ## need to try moving out of second row
-            elif r in {2, 3, 4, 5} and grid[1][c] == '.':
+            ## need to try moving out of second-fifth rows
+            elif r in {2, 3, 4, 5} and all(grid[rr][c] == '.' for rr in range(1, r)):
                 if grid[1][c - 1] == '.':
                     neis.append(try_move(r * ENERGY_OF_TYPE[type], 1, c - 1))
                 if grid[1][c + 1] == '.':
